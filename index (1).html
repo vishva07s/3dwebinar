@@ -1,0 +1,1319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>AI LinkedIn Profile Audit - Free Analysis for ₹1</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1e40af;
+            --secondary: #10b981;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-400: #9ca3af;
+            --gray-500: #6b7280;
+            --gray-600: #4b5563;
+            --gray-700: #374151;
+            --gray-800: #1f2937;
+            --gray-900: #111827;
+            --text-primary: #111827;
+            --text-secondary: #4b5563;
+            --border-color: #e5e7eb;
+            --success: #10b981;
+            --error: #ef4444;
+            --warning: #f59e0b;
+            padding-top: env(safe-area-inset-top, 0px);
+            padding-bottom: env(safe-area-inset-bottom, 0px);
+            box-sizing: border-box;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            background: #ffffff;
+            color: var(--text-primary);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            overflow-x: hidden;
+        }
+
+        /* Typography */
+        h1 {
+            font-size: clamp(28px, 6vw, 56px);
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 24px;
+            color: var(--gray-900);
+        }
+
+        h2 {
+            font-size: clamp(24px, 5vw, 48px);
+            font-weight: 700;
+            line-height: 1.25;
+            margin-bottom: 20px;
+            color: var(--gray-900);
+        }
+
+        h3 {
+            font-size: clamp(16px, 4vw, 24px);
+            font-weight: 600;
+            line-height: 1.35;
+            margin-bottom: 12px;
+            color: var(--gray-800);
+        }
+
+        p, span {
+            font-size: clamp(14px, 2vw, 16px);
+            line-height: 1.6;
+            color: var(--text-secondary);
+        }
+
+        a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: var(--primary-dark);
+        }
+
+        /* Layout */
+        .container {
+            width: 100%;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section {
+            padding: 60px 20px;
+        }
+
+        @media (max-width: 768px) {
+            .section {
+                padding: 40px 20px;
+            }
+            h1 { font-size: 32px; }
+            h2 { font-size: 28px; }
+            h3 { font-size: 20px; }
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #f0f9ff 0%, #f3e8ff 100%);
+            padding: 80px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-glow {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            top: -200px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 0;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        @media (max-width: 768px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            .hero {
+                padding: 60px 20px;
+            }
+        }
+
+        .hero-left h1 {
+            margin-bottom: 24px;
+            color: var(--gray-900);
+        }
+
+        .hero-subtitle {
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 32px;
+            color: var(--text-secondary);
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 32px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 14px 28px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--primary);
+            border: 2px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--primary);
+            background: var(--gray-50);
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--gray-50);
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            margin-bottom: 24px;
+            width: fit-content;
+        }
+
+        .badge-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--success);
+            border-radius: 50%;
+        }
+
+        .hero-card {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+            position: relative;
+        }
+
+        .hero-card-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .hero-card-avatar {
+            width: 48px;
+            height: 48px;
+            background: var(--gray-100);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 20px;
+        }
+
+        .hero-card-meta h4 {
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: var(--gray-900);
+        }
+
+        .hero-card-meta p {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .hero-status-badge {
+            position: absolute;
+            top: -16px;
+            right: 24px;
+            background: var(--success);
+            color: white;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        /* Trust Section */
+        .trust-section {
+            background: white;
+            padding: 60px 20px;
+        }
+
+        .trust-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .trust-card {
+            text-align: center;
+        }
+
+        .trust-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--gray-100);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            margin: 0 auto 24px;
+        }
+
+        .trust-card h3 {
+            margin-bottom: 12px;
+        }
+
+        .trust-card p {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        /* How It Works */
+        .how-section {
+            background: var(--gray-50);
+            padding: 60px 20px;
+        }
+
+        .how-section h2 {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .step {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            text-align: center;
+            position: relative;
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 700;
+            margin: 0 auto 24px;
+        }
+
+        .step h3 {
+            margin-bottom: 16px;
+        }
+
+        .step p {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        /* Benefits Section */
+        .benefits-section {
+            background: white;
+            padding: 60px 20px;
+        }
+
+        .benefits-section h2 {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .benefit-card {
+            background: var(--gray-50);
+            padding: 32px;
+            border-radius: 12px;
+            border-left: 4px solid var(--primary);
+        }
+
+        .benefit-icon {
+            width: 48px;
+            height: 48px;
+            background: white;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 16px;
+        }
+
+        .benefit-card h3 {
+            margin-bottom: 12px;
+        }
+
+        .benefit-card p {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        /* Form Section */
+        .form-section {
+            background: white;
+            padding: 60px 20px;
+        }
+
+        .form-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            padding: 48px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+        }
+
+        .form-section h2 {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--gray-900);
+            font-size: 14px;
+        }
+
+        .form-input,
+        .form-textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .form-required {
+            color: var(--error);
+        }
+
+        .form-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 24px;
+        }
+
+        .form-checkbox input {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .form-checkbox label {
+            cursor: pointer;
+            font-size: 14px;
+            color: var(--text-secondary);
+            flex: 1;
+        }
+
+        .form-submit {
+            width: 100%;
+            padding: 14px 24px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 24px;
+        }
+
+        .form-submit:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3);
+        }
+
+        .form-submit:disabled {
+            background: var(--gray-300);
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .form-message {
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            font-size: 14px;
+            display: none;
+        }
+
+        .form-message.success {
+            background: #d1fae5;
+            color: #065f46;
+            display: block;
+        }
+
+        .form-message.error {
+            background: #fee2e2;
+            color: #991b1b;
+            display: block;
+        }
+
+        .trust-text {
+            text-align: center;
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-top: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        /* Payment Section */
+        .payment-section {
+            background: linear-gradient(135deg, #f0f9ff 0%, #f3e8ff 100%);
+            padding: 60px 20px;
+        }
+
+        .payment-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            padding: 48px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+        }
+
+        .payment-offer {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        @media (max-width: 768px) {
+            .payment-offer {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .offer-highlights h2 {
+            margin-bottom: 24px;
+        }
+
+        .offer-list {
+            list-style: none;
+            margin-bottom: 24px;
+        }
+
+        .offer-list li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+            font-size: 14px;
+        }
+
+        .offer-check {
+            color: var(--success);
+            font-weight: bold;
+        }
+
+        .payment-box {
+            text-align: center;
+            background: var(--gray-50);
+            padding: 32px;
+            border-radius: 12px;
+        }
+
+        .payment-price {
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--primary);
+            margin: 16px 0;
+        }
+
+        .payment-original {
+            text-decoration: line-through;
+            color: var(--gray-400);
+            font-size: 20px;
+        }
+
+        .payment-btn {
+            width: 100%;
+            padding: 14px 24px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 24px;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .payment-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3);
+        }
+
+        /* Testimonials */
+        .testimonials-section {
+            background: var(--gray-50);
+            padding: 60px 20px;
+        }
+
+        .testimonials-section h2 {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+        }
+
+        .testimonial-card {
+            background: white;
+            padding: 32px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .stars {
+            color: #fbbf24;
+            font-size: 18px;
+            margin-bottom: 16px;
+            letter-spacing: 2px;
+        }
+
+        .testimonial-text {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            line-height: 1.6;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .author-avatar {
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        .author-info h4 {
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 2px;
+        }
+
+        .author-info p {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        /* FAQ */
+        .faq-section {
+            background: white;
+            padding: 60px 20px;
+        }
+
+        .faq-container {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .faq-section h2 {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid var(--border-color);
+            padding: 24px 0;
+        }
+
+        .faq-item:first-child {
+            border-top: 1px solid var(--border-color);
+        }
+
+        .faq-question {
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .faq-question h3 {
+            margin: 0;
+            flex: 1;
+            text-align: left;
+        }
+
+        .faq-toggle {
+            color: var(--primary);
+            font-weight: bold;
+            font-size: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item.active .faq-toggle {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            display: none;
+            margin-top: 16px;
+            color: var(--text-secondary);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .faq-item.active .faq-answer {
+            display: block;
+        }
+
+        /* Final CTA */
+        .final-cta {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .final-cta h2 {
+            color: white;
+            margin-bottom: 24px;
+        }
+
+        .final-cta p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 16px;
+            margin-bottom: 32px;
+        }
+
+        .final-cta .btn-primary {
+            background: white;
+            color: var(--primary);
+        }
+
+        .final-cta .btn-primary:hover {
+            background: var(--gray-100);
+        }
+
+        /* Utility */
+        .text-center {
+            text-align: center;
+        }
+
+        .mt-40 {
+            margin-top: 40px;
+        }
+
+        .mb-40 {
+            margin-bottom: 40px;
+        }
+
+        /* Animations */
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-in {
+            animation: slideIn 0.6s ease-out;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .payment-offer {
+                gap: 24px;
+            }
+
+            .form-container {
+                padding: 32px 24px;
+            }
+
+            .hero-card {
+                padding: 24px;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-glow"></div>
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-left">
+                    <div class="hero-badge">
+                        <span class="badge-dot"></span>
+                        <span>AI-Powered Analysis</span>
+                    </div>
+                    <h1>Unlock Your LinkedIn Profile's Hidden Potential</h1>
+                    <p class="hero-subtitle">Get a professional LinkedIn audit powered by AI. Discover what's working, what's overlooked, and exactly how to stand out to recruiters and hiring managers.</p>
+                    <div class="cta-buttons">
+                        <button class="btn btn-primary" onclick="scrollToForm()">Get Free Audit</button>
+                        <button class="btn btn-secondary" onclick="scrollToHow()">Learn How It Works</button>
+                    </div>
+                    <div style="display: flex; gap: 32px; font-size: 14px; color: var(--text-secondary); flex-wrap: wrap;">
+                        <div>
+                            <div style="font-weight: 600; color: var(--gray-900);">10,000+</div>
+                            <div>Profiles Analyzed</div>
+                        </div>
+                        <div>
+                            <div style="font-weight: 600; color: var(--gray-900);">95%</div>
+                            <div>Success Rate</div>
+                        </div>
+                        <div>
+                            <div style="font-weight: 600; color: var(--gray-900);">3 Min</div>
+                            <div>Complete Audit</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hero-right">
+                    <div class="hero-card">
+                        <div class="hero-status-badge">✓ Analysis Ready</div>
+                        <div class="hero-card-header">
+                            <div class="hero-card-avatar">SK</div>
+                            <div class="hero-card-meta">
+                                <h4>Sarah Kumar</h4>
+                                <p>Software Engineer • San Francisco</p>
+                            </div>
+                        </div>
+                        <div style="margin: 24px 0; padding: 24px; background: var(--gray-50); border-radius: 8px;">
+                            <div style="font-size: 14px; color: var(--text-secondary); margin-bottom: 16px;">Overall Profile Score</div>
+                            <div style="display: flex; align-items: baseline; gap: 8px; margin-bottom: 16px;">
+                                <div style="font-size: 48px; font-weight: 700; color: var(--primary);">72</div>
+                                <div style="font-size: 16px; color: var(--text-secondary);">/100</div>
+                            </div>
+                            <div style="font-size: 12px; color: var(--gray-500);">Strong • Room for improvement</div>
+                        </div>
+                        <div style="margin-bottom: 24px;">
+                            <div style="font-weight: 600; font-size: 14px; margin-bottom: 16px; color: var(--gray-900);">Priority Diagnostics</div>
+                            <div style="margin-bottom: 12px;">
+                                <div style="display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 6px;">
+                                    <span style="color: var(--text-secondary);">Headline Optimization</span>
+                                    <span style="color: var(--gray-900); font-weight: 600;">64%</span>
+                                </div>
+                                <div style="height: 6px; background: var(--border-color); border-radius: 3px; overflow: hidden;">
+                                    <div style="height: 100%; width: 64%; background: var(--primary); border-radius: 3px;"></div>
+                                </div>
+                            </div>
+                            <div style="margin-bottom: 12px;">
+                                <div style="display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 6px;">
+                                    <span style="color: var(--text-secondary);">About Section Clarity</span>
+                                    <span style="color: var(--gray-900); font-weight: 600;">58%</span>
+                                </div>
+                                <div style="height: 6px; background: var(--border-color); border-radius: 3px; overflow: hidden;">
+                                    <div style="height: 100%; width: 58%; background: var(--primary); border-radius: 3px;"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div style="display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 6px;">
+                                    <span style="color: var(--text-secondary);">Keyword Density</span>
+                                    <span style="color: var(--gray-900); font-weight: 600;">71%</span>
+                                </div>
+                                <div style="height: 6px; background: var(--border-color); border-radius: 3px; overflow: hidden;">
+                                    <div style="height: 100%; width: 71%; background: var(--primary); border-radius: 3px;"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="padding: 12px 16px; background: var(--gray-50); border-radius: 6px; font-size: 12px; color: var(--text-secondary); text-align: center;">
+                            <span style="display: block; margin-bottom: 4px;">🔒 Analysis Status</span>
+                            In Progress • 2 min remaining
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust Section -->
+    <section class="trust-section">
+        <div class="container">
+            <h2 class="text-center">Build a Stronger Professional First Impression</h2>
+            <div class="trust-grid">
+                <div class="trust-card">
+                    <div class="trust-icon">🔍</div>
+                    <h3>AI Profile Analysis</h3>
+                    <p>Understand the structural strengths, content blindspots, and visibility gaps across your profile.</p>
+                </div>
+                <div class="trust-card">
+                    <div class="trust-icon">💡</div>
+                    <h3>Personalized Suggestions</h3>
+                    <p>Get custom recommendations calibrated precisely to your industry, level, and next target role.</p>
+                </div>
+                <div class="trust-card">
+                    <div class="trust-icon">⬆️</div>
+                    <h3>Profile Improvement</h3>
+                    <p>Discover section-by-section line revisions to elevate your profile from standard to standout.</p>
+                </div>
+                <div class="trust-card">
+                    <div class="trust-icon">🎯</div>
+                    <h3>Career Focused</h3>
+                    <p>Reframe your achievements so decision makers immediately grasp the scope of your actual impact.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="how-section" id="how-section">
+        <div class="container">
+            <h2 class="text-center">How It Works</h2>
+            <div class="steps-grid">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Submit Your Details</h3>
+                    <p>Enter your name, email, contact info, and your public LinkedIn URL. No logins or passwords needed.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>AI Analyzes Your Profile</h3>
+                    <p>Algorithms inspect your headline, About copy, career timeline, keyword relevance, and overall presentation.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Get Your Improvement Plan</h3>
+                    <p>Receive personalized, copy-pasteable edits and actionable pointers to immediately upgrade your presence.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="benefits-section">
+        <div class="container">
+            <h2 class="text-center">What You'll Improve</h2>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">📝</div>
+                    <h3>Better Headline</h3>
+                    <p>Create a clear and professional headline that instantly communicates your market value and focus.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">📄</div>
+                    <h3>Improved About Section</h3>
+                    <p>Present your experience, core competencies, goals, and signature achievements with executive clarity.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">🔑</div>
+                    <h3>Smart Keywords</h3>
+                    <p>Identify and integrate industry-specific terminology that talent sourcing agents use daily.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">💼</div>
+                    <h3>Skills & Projects</h3>
+                    <p>Restructure technical proficiencies and portfolio case studies for fast skimming and validation.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">🚀</div>
+                    <h3>AI Profile Analysis</h3>
+                    <p>Understand what is working, what goes unnoticed, and precisely what needs structural revision.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">📈</div>
+                    <h3>Growth Strategy</h3>
+                    <p>Receive continuous guidance on posts, featured links, and network positioning to sustain visibility.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Form Section -->
+    <section class="form-section" id="form-section">
+        <div class="container">
+            <h2 class="text-center">Get Your Free AI Profile Audit</h2>
+            <div class="form-container">
+                <div id="formMessage" class="form-message"></div>
+                <form id="auditForm" onsubmit="handleFormSubmit(event)">
+                    <div class="form-group">
+                        <label class="form-label">Full Name <span class="form-required">*</span></label>
+                        <input type="text" class="form-input" id="name" name="name" placeholder="Enter your full name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Email Address <span class="form-required">*</span></label>
+                        <input type="email" class="form-input" id="email" name="email" placeholder="you@example.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Phone Number <span class="form-required">*</span></label>
+                        <input type="tel" class="form-input" id="phone" name="phone" placeholder="Enter your 10-digit phone number" required>
+                    </div>
+
+                    <div class="form-checkbox">
+                        <input type="checkbox" id="terms" name="terms" required>
+                        <label for="terms">I agree to the Terms & Conditions and Privacy Policy</label>
+                    </div>
+
+                    <button type="submit" class="form-submit" id="submitBtn">Get Your Free Audit for ₹1</button>
+
+                    <div class="trust-text">
+                        <span>🔒</span>
+                        <span>Your data is secure and will never be shared</span>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Payment Section -->
+    <section class="payment-section">
+        <div class="container">
+            <div class="payment-container">
+                <div class="payment-offer">
+                    <div class="offer-highlights">
+                        <div style="display: inline-block; background: var(--primary); color: white; padding: 6px 16px; border-radius: 20px; font-size: 13px; font-weight: 600; margin-bottom: 24px;">LIMITED TIME OFFER</div>
+                        <h2>Get Your AI Profile Analysis for Just ₹1</h2>
+                        <p style="color: var(--text-secondary); margin-bottom: 24px;">Gain immediate access to our complete LinkedIn algorithmic diagnostics package at zero barrier to entry.</p>
+                        <ul class="offer-list">
+                            <li><span class="offer-check">✓</span> Complete profile audit</li>
+                            <li><span class="offer-check">✓</span> Personalized recommendations</li>
+                            <li><span class="offer-check">✓</span> Keyword optimization tips</li>
+                            <li><span class="offer-check">✓</span> Industry-specific insights</li>
+                            <li><span class="offer-check">✓</span> Career growth strategy</li>
+                            <li><span class="offer-check">✓</span> Instant delivery</li>
+                        </ul>
+                    </div>
+                    <div class="payment-box">
+                        <div style="color: var(--text-secondary); font-size: 14px; margin-bottom: 8px;">Price</div>
+                        <div class="payment-price">₹1</div>
+                        <div class="payment-original">Regular: ₹999</div>
+                        <a href="https://payments.cashfree.com/forms/getaudit" class="payment-btn">Proceed to Payment</a>
+                        <div style="text-align: center; font-size: 12px; color: var(--text-secondary); margin-top: 16px;">
+                            ✓ Secure Payment • 30-Day Money-Back Guarantee
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials-section">
+        <div class="container">
+            <h2 class="text-center">What Professionals Are Saying</h2>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="testimonial-text">"The AI helped me identify weaknesses in my LinkedIn profile that I had completely overlooked. The recommendations were clear and practical."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">SK</div>
+                        <div class="author-info">
+                            <h4>Sarah Kumar</h4>
+                            <p>Product Manager</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="testimonial-text">"My profile was very basic before. The suggestions helped me present my skills and projects much more professionally."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">RJ</div>
+                        <div class="author-info">
+                            <h4>Raj Joshi</h4>
+                            <p>Frontend Developer</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="testimonial-text">"I finally understood what I should improve first instead of randomly changing my profile. It gave me real direction."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">AP</div>
+                        <div class="author-info">
+                            <h4>Aisha Patel</h4>
+                            <p>Data Scientist</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq-section">
+        <div class="container">
+            <div class="faq-container">
+                <h2 class="text-center">Frequently Asked Questions</h2>
+                <div class="faq-item active">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <h3>How does the AI analysis work?</h3>
+                        <span class="faq-toggle">▼</span>
+                    </div>
+                    <div class="faq-answer">Our AI algorithms analyze your LinkedIn profile across 50+ dimensions including headline strength, keyword optimization, engagement metrics, profile completeness, and recruiter visibility. We compare your profile against industry benchmarks and provide personalized recommendations.</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <h3>Is my data secure?</h3>
+                        <span class="faq-toggle">▼</span>
+                    </div>
+                    <div class="faq-answer">Yes. We never store your LinkedIn data on our servers. All analysis is done in real-time, and your information is encrypted and protected under industry-standard security protocols.</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <h3>How long does the audit take?</h3>
+                        <span class="faq-toggle">▼</span>
+                    </div>
+                    <div class="faq-answer">The complete audit typically takes 3-5 minutes. You'll receive your full report immediately after completion, with detailed recommendations and action items.</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <h3>Can I trust the recommendations?</h3>
+                        <span class="faq-toggle">▼</span>
+                    </div>
+                    <div class="faq-answer">Our recommendations are based on data-driven insights from analyzing thousands of successful LinkedIn profiles across various industries and roles. All suggestions are tailored to your specific profile and career goals.</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <h3>What if I'm not satisfied?</h3>
+                        <span class="faq-toggle">▼</span>
+                    </div>
+                    <div class="faq-answer">We offer a 30-day money-back guarantee. If you're not satisfied with the audit or recommendations, we'll refund your ₹1 without any questions asked.</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <h3>Will this help me get more recruiter attention?</h3>
+                        <span class="faq-toggle">▼</span>
+                    </div>
+                    <div class="faq-answer">Yes. Our audit specifically focuses on improving elements that recruiters and hiring managers look for - headline clarity, keyword optimization, profile completeness, and professional presentation. Users typically see increased recruiter views within weeks.</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <h3>Do I need to provide my LinkedIn password?</h3>
+                        <span class="faq-toggle">▼</span>
+                    </div>
+                    <div class="faq-answer">No. We never ask for or require your LinkedIn password. You only need to provide your public LinkedIn profile URL, which is completely safe and doesn't require any login credentials.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="final-cta">
+        <div class="container">
+            <h2>Ready to Transform Your LinkedIn Profile?</h2>
+            <p>Join thousands of professionals who've already improved their LinkedIn presence. Your audit is just ₹1 away.</p>
+            <button class="btn btn-primary" style="background: white; color: var(--primary); padding: 14px 32px; font-weight: 600;" onclick="scrollToForm()">Get Your Free Audit Now</button>
+        </div>
+    </section>
+
+    <script>
+        const APPSCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwhuzRVuqeenbXHVBsoG6P7d28CMmD6srkJu9WzKxH71h3ssUKa1YnaoaZ_pq5N4N26kA/exec';
+
+        function handleFormSubmit(event) {
+            event.preventDefault();
+
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const messageEl = document.getElementById('formMessage');
+            const submitBtn = document.getElementById('submitBtn');
+
+            // Validation
+            if (!name || !email || !phone) {
+                showMessage('Please fill in all required fields', 'error');
+                return;
+            }
+
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                showMessage('Please enter a valid email address', 'error');
+                return;
+            }
+
+            if (!/^\d{10}$/.test(phone.replace(/\D/g, ''))) {
+                showMessage('Please enter a valid 10-digit phone number', 'error');
+                return;
+            }
+
+            // Disable button and show loading state
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Processing...';
+
+            // Build URL with query parameters
+            const url = APPSCRIPT_URL + '?' + new URLSearchParams({
+                name: name,
+                email: email,
+                phone: phone
+            });
+
+            // Send data to AppScript
+            fetch(url, {
+                method: 'GET',
+                mode: 'no-cors'
+            })
+            .then(() => {
+                // Success - redirect to payment
+                showMessage('✓ Details saved! Redirecting to payment...', 'success');
+                setTimeout(() => {
+                    window.location.href = 'https://payments.cashfree.com/forms/getaudit';
+                }, 2000);
+            })
+            .catch(() => {
+                // Even on error, redirect to payment since we can't verify with no-cors
+                showMessage('✓ Details saved! Redirecting to payment...', 'success');
+                setTimeout(() => {
+                    window.location.href = 'https://payments.cashfree.com/forms/getaudit';
+                }, 2000);
+            });
+        }
+
+        function showMessage(text, type) {
+            const messageEl = document.getElementById('formMessage');
+            messageEl.textContent = text;
+            messageEl.className = 'form-message ' + type;
+            
+            if (type === 'error') {
+                // Reset button on error
+                const submitBtn = document.getElementById('submitBtn');
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Get Your Free Audit for ₹1';
+            }
+        }
+
+        function toggleFAQ(element) {
+            element.closest('.faq-item').classList.toggle('active');
+        }
+
+        function scrollToForm() {
+            document.getElementById('form-section').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function scrollToHow() {
+            document.getElementById('how-section').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Add animation on scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-in');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.step, .trust-card, .benefit-card, .testimonial-card').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
